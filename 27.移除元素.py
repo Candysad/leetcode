@@ -7,6 +7,10 @@
 # @lc code=start
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
+        '''
+        左右指针
+        数组的原地技巧
+        '''
         left = 0
         for right in range(len(nums)):
             if nums[right] != val:

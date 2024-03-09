@@ -7,6 +7,11 @@
 # @lc code=start
 class Solution:
     def climbStairs(self, n: int) -> int:
+        '''
+        动态规划简单题
+        倒着想
+        正着构建
+        '''
         if n == 1:
             return 1
         if n == 2:
