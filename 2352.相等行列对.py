@@ -8,23 +8,23 @@
 class Solution:
     def equalPairs(self, grid: List[List[int]]) -> int:
         '''
-        比的是对应位置数对应一样
+        行列数字按顺序一样
         '''
-        result = 0
-        n = len(grid)
-        row_sums = dict()
+        rows = {}
         for row in grid:
-            row_sum = sum(row)   
-            row_sums[row_sum] = row_sums.get(row_sum, 0) + 1
-        
-        print(row_sums)
+            t = ""
+            for num in row:
+                t += " " + str(num)
+            rows[t] = rows.get(t, 0) + 1
+        # print(rows)
+        n = len(grid)
+        result = 0
         for i in range(n):
-            column_sum = 0
+            t = ""
             for j in range(n):
-                column_sum += grid[j][i]
-            print(column_sum)
-            
-            result += row_sums[column_sum]
+                t += " " + str(grid[j][i])         
+            # print(t)
+            result += rows.get(t, 0)
         
         return result
 # @lc code=end
