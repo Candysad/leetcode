@@ -12,8 +12,8 @@ class Solution:
         
         for i in range(len(nums)):
             # 找另一半
-            if dic.get(target - nums[i], -1) != -1:
-                return [i, dic.get(target - nums[i], -1)]
+            if dic.get(target - nums[i], "no") != "no":
+                return [i, dic[target - nums[i]]]
             
             # 加入表
             dic[nums[i]] = i
