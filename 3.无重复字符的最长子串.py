@@ -7,14 +7,11 @@
 # @lc code=start
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s) == 0:
+            return 0
         length = 1
         left = 0
         right = 1
-        # 左右指针
-        
-        # 特殊情况
-        if len(s) == 0:
-            return 0
         
         while right < len(s):
             for i in range(left, right):
