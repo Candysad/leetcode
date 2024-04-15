@@ -16,7 +16,7 @@ class MyHashSet:
         发生冲突就递增地放进槽位里形成链表
         用二分查
         '''
-        self.table = [[]] * 1000
+        self.table = [[] for _ in range(1000)] 
 
     def add(self, key: int) -> None:
         slot = key % 1000
