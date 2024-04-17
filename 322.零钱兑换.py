@@ -8,7 +8,7 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         '''
-        动态规划 背包题
+        动态规划 背包问题
         面值不一定符合常识，可能是完全不能凑成目标的几个数，也可能是刚好有特定组合可以凑出目标的一组
         coins [186,419,83,408]
         amount 6249
