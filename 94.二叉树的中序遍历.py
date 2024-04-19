@@ -23,18 +23,20 @@ class Solution:
         
         stack = []
         result = []
-        
         node = root
-        while node is not None or stack:
-            while node is not None:
+        
+        while stack or node:
+            while node:
                 stack.append(node)
                 node = node.left
             
-            node = stack.pop()
-            result.append(node.val)
-            node = node.right
-
+            if node is None:
+                node = stack.pop()
+                result.append(node.val)
+                node = node.right
         return result
+        
+        
 
         '''
         中序遍历：先自己再左右
