@@ -59,8 +59,6 @@ class Solution:
             if nextday < n:
                 dp[nextday] = max(dp[nextday], dp[i])
         
-        return max(dp)
-        
-        
+        return max(dp) 
 # @lc code=end
 
