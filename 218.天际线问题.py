@@ -7,5 +7,9 @@
 # @lc code=start
 class Solution:
     def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
+
+            
+        
+        
 # @lc code=end
 
