@@ -36,23 +36,23 @@ class Solution:
         广度优先
         全排列
         '''
-        # nums = set(nums)
-        # n = len(nums)
-        # queue = [{}]
+        nums = set(nums)
+        n = len(nums)
+        queue = [{}]
         
-        # result = []
-        # while queue:
-        #     t = queue
-        #     queue = []
-        #     for pre in t:
-        #         if len(pre) == n:
-        #             result.append(list(pre))
-        #             continue
-        #         for num in nums:
-        #             t_pre = pre.copy()
-        #             if num not in t_pre:
-        #                 t_pre[num] = None
-        #                 queue.append(t_pre)
-        # return result
+        result = []
+        while queue:
+            t = queue
+            queue = []
+            for pre in t:
+                if len(pre) == n:
+                    result.append(list(pre))
+                    continue
+                for num in nums:
+                    t_pre = pre.copy()
+                    if num not in t_pre:
+                        t_pre[num] = None
+                        queue.append(t_pre)
+        return result
 
 # @lc code=end
