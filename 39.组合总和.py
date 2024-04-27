@@ -41,7 +41,7 @@ class Solution:
         return result
         
         '''
-        参数里穿了数组，内存花销太大了
+        参数里传了数组，内存花销太大了
         '''
         # def dfs(i:int, pre:list, pre_sum:int):
             

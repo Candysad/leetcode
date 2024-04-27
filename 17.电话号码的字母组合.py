@@ -44,10 +44,10 @@ class Solution:
                 for letter in phoneMap[digit]: # 没到头则循环递归添加一个字符
                     combination.append(letter)
                     backtrack(index + 1) # 递归添加下一个可能的字符
-                    combination.pop() # 递归到头后再到这一步，回退一个字符准备换成下一个
+                    combination.pop() # 回溯 # 递归到头后再到这一步，回退一个字符准备换成下一个
 
-        combination = list()
-        combinations = list()
+        combination = []
+        combinations = []
         backtrack(0)
         return combinations 
 # @lc code=end

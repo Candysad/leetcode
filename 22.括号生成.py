@@ -8,23 +8,28 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         '''
-        递归
+        递归+回溯
         加入左括号的情况和加入右括号的情况分别讨论
         '''
         result = []
-        def gen(s: str, left:int, right:int):
-            if left == 0 and right == 0:
-                result.append(s)
+        pre = []
+        def dfs(left:int, right:int) -> None:
+            if left == right == n:
+                result.append(''.join(pre))
+                return
             
-            # 加入一个左括号
-            # 可放入的左括号数量-1，可放入的右括号数量+1
-            if left:
-                gen(s+"(", left-1, right+1)
-            # 
-            if right:
-                gen(s+")", left, right-1)
-        
-        gen("", n, 0)
+            if left < n:
+                pre.append('(')
+                dfs(left+1, right)
+                pre.pop()
+            
+            if left > right:
+                pre.append(")")
+                dfs(left, right+1)
+                pre.pop()
+            
+        dfs(0, 0)
+            
         return result
 # @lc code=end
 
