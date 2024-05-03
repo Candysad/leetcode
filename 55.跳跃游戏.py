@@ -8,17 +8,14 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         n = len(nums)
-        if n == 1:
-            return True
-        left = 0
-        right= 0
+        now = 0
+        end = nums[0]
+        while now < n and now <= end:
+            end = max(end, now + nums[now])
+            now += 1
         
-        while right < n-1:
-            if left > right:
-                return False
-            right = max(right, nums[left] + left)
-            left += 1
-        
+        if end < n - 1:
+            return False
         return True
 # @lc code=end
 
