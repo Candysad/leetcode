@@ -7,33 +7,38 @@
 # @lc code=start
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        # if len(nums) == 1:
-        #     return nums[0]
-        # if len(nums) == 2:
-        #     return nums[0] if nums[0] > nums[1] else nums[1]
-        
-        # # 记录的是到当前位置能得到的最高的值
-        # nums[1] = nums[0] if nums[0] > nums[1] else nums[1]
-        # for i in range(2, len(nums)):
-        #     nums[i] = max(nums[i]+ nums[i-2], nums[i-1])
-        
-        # return nums[len(nums)-1]
+        '''
+        一种状态
+        '''
+        # n = len(nums)
+        # dp = [0] * (n + 1)
+        # dp[1] = nums[0]
+        # for i in range(2, n+1):
+        #     dp[i] = max(dp[i-2] + nums[i-1], dp[i-1])
+        # return dp[-1]
         
         '''
         代码简化
         易读性差
         '''
-        left = right = 0
-        for n in nums:
-            left, right = right, max(left + n, right) 
-            '''
-            左
-                right 本来是上次的最大值，更新为当前能偷到的最大值
-                left  本来是上上次的最大值，更新为上一次的最大值
-            右
-                left + n 为上上次最大值 + 这次偷
-                right    为上次的最大值 + 这次不偷
-            '''
+        n = len(nums)
+        left, right = 0, nums[0]
+        
+        for i in range(1, n):
+            left, right = right, max(left + nums[i], right)
         return right
+        
+        '''
+        两种状态dp
+        '''
+        # n = len(nums)
+        # dp0 = [0] * (n + 1) # 今天不偷
+        # dp1 = [0] * (n + 1) # 今天偷
+
+        # for i in range(1, n+1):
+        #     dp0[i] = max(dp0[i-1], dp1[i-1])
+        #     dp1[i] = dp0[i-1] + nums[i-1]
+        
+        # return max(dp0[-1], dp1[-1])
 # @lc code=end
 
