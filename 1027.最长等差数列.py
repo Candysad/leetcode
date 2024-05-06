@@ -7,6 +7,25 @@ from collections import defaultdict
 # @lc code=start
 class Solution:
     def longestArithSeqLength(self, nums: List[int]) -> int:
+        maxdiff = max(nums) - min(nums)
+        result = 2
+        for diff in range(-maxdiff, maxdiff+1):
+            pre = {}
+            
+            maxlen = 1
+            for num in nums:
+                last = num - diff
+                if num - diff in pre:
+                    pre[num] = pre[last] + 1
+                    maxlen = max(maxlen, pre[num])
+                else:
+                    pre[num] = 1
+
+            result = max(result, maxlen)
+        
+        return result
+                    
+        
         '''
         从前往后一次遍历
         爆内存..😓
@@ -49,14 +68,14 @@ class Solution:
         转成 1218.定差子序列
         和1218的区别就是没给定差值，要自己遍历找
         '''
-        diff = max(nums) - min(nums) # 只知道最大差，但并不知道max和min的前后，故差值也可能是min-max为负
+        # diff = max(nums) - min(nums) # 只知道最大差，但并不知道max和min的前后，故差值也可能是min-max为负
         
-        result = 2 # 至少有2个数
-        for d in range(-diff, diff):
-            dp = defaultdict(int)
-            for num in nums:
-                dp[num] = dp[num-d] + 1
-            result = max(max(dp.values()), result)
-        return result     
+        # result = 2 # 至少有2个数
+        # for d in range(-diff, diff+1):
+        #     dp = defaultdict(int)
+        #     for num in nums:
+        #         dp[num] = dp[num-d] + 1
+        #     result = max(max(dp.values()), result)
+        # return result     
 # @lc code=end
 
