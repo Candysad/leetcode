@@ -9,10 +9,9 @@ class Solution:
     def cherryPickup(self, grid: List[List[int]]) -> int:
         n = len(grid)
         m = len(grid[0])
-        
         dp = [[[0] * m for _ in range(m)] for __ in range(n+1)]
         # i 左边那个离左边界的距离
-        # j 右边那个离有边界的距离
+        # j 右边那个离右边界的距离
         # m-1-j == i 时在同一个位置
         for k in range(1, n+1):
             # 最开始几行到不了中间
@@ -27,7 +26,7 @@ class Solution:
                         (i, j-1), (i, j), (i, j+1),
                         (i+1, j-1), (i+1, j), (i+1, j+1),
                         ]:
-                        if 0 <= ilast < m and  0 <= jlast < m:
+                        if 0 <= ilast < m and 0 <= jlast < m:
                             if dp[k-1][ilast][jlast]:
                                 lasts.append(dp[k-1][ilast][jlast])
                     dp[k][i][j] = max(lasts)
