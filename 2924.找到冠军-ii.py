@@ -10,7 +10,6 @@ class Solution:
         '''
         把输过的踢了
         从来没输过的就是冠军
-        
         所有edge都有用，必须全部遍历
         '''
         result = set([i for i in range(n)])
