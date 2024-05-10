@@ -14,7 +14,6 @@ class uniontree:
                 if grid[i][j] == '1':
                     self.tree[i*m + j] = i * m + j
                     self.count += 1
-        
     
     def find(self, node):
         t = node

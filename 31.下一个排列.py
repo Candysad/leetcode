@@ -6,7 +6,7 @@
 from bisect import bisect_left
 # @lc code=start
 class Solution:
-    def nextPermutation(self, nums: List[int]) -> None:
+    def nextPermutation(self, nums: List[int]) -> None:         
         """
         Do not return anything, modify nums in-place instead.
         """
@@ -20,32 +20,19 @@ class Solution:
             总要有至少一个降序
             全是降序则直接反过来回到最开头
         '''
-        # 找降序部分
-        i = len(nums)-1
-        if i == 0:
+        n = len(nums)
+        if n == 1:
             return nums
         
+        i = n-1
         while i > 0 and nums[i] <= nums[i-1]:
             i -= 1
         
-        if i == 0:
+        if i > 0:
+            nums[:] = nums[:i] + nums[i:][::-1]
+            si = bisect_left(nums, nums[i-1]+1, lo=i)
+            nums[i-1], nums[si] = nums[si], nums[i-1]
+        else:
             nums[:] = nums[::-1]
-            return
-
-        # 找到要换进去的位置
-        left = i-1
-        # 找换出来的位置
-        right = bisect_left(nums[i:], -nums[left], key=lambda x:-x) + i-1 # 二分查找-1是目标坐标，但是nums截取了右侧，坐标还要从i开始，所以是 -1 + i
-        
-        # print("left", left, nums[left])
-        # print("right", right, nums[right])
-        
-        # 交换
-        nums[left], nums[right] = nums[right], nums[left]
-        # print(nums)
-        
-        # 降序部分翻转成升序
-        # print(nums[i:], nums[i:][::-1])
-        nums[i:] = nums[i:][::-1]
 # @lc code=end
 
