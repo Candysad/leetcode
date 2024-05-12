@@ -7,26 +7,25 @@ from collections import defaultdict
 # @lc code=start
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        g = [[] for _ in range(numCourses)]
-        d = [0] * numCourses # 入度
-        for pre, suc in prerequisites:
-            g[pre].append(suc)
-            d[suc] += 1
+        g = [[] for i in range(numCourses)]
+        indegree = [0] * numCourses
+        for course, pre in prerequisites:
+            g[pre].append(course)
+            indegree[course] += 1
         
         queue = []
-        for node in range(numCourses): # 初始入度为 0 的节点
-            if d[node] == 0:
-                queue.append(node)
+        for i, d in enumerate(indegree):
+            if d == 0:
+                queue.append(i)
         
         while queue:
             t = queue
             queue = []
-            for pre in t:
-                for suc in g[pre]:
-                    d[suc] -= 1
-                    if d[suc] == 0:
-                        queue.append(suc)
-        
-        return False if any(d) else True
+            for node in t:
+                for nextnode in g[node]:
+                    indegree[nextnode] -= 1
+                    if indegree[nextnode] == 0:
+                        queue.append(nextnode)
+        return False if any(indegree) else True
 # @lc code=end
 
