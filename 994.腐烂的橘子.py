@@ -21,8 +21,6 @@ class Solution:
         '''
         n = len(grid)
         m = len(grid[0])
-        for line in grid:
-            print(line)
         
         def bfs(i, j):
             vis = set()
@@ -41,19 +39,15 @@ class Solution:
                                     grid[xx][yy] = -time if grid[xx][yy] == 1 else max(grid[xx][yy], -time)
                                     queue.append((xx,yy))
                 
-        
         for i in range(n):
             for j in range(m):
                 if grid[i][j] == 2:
                     bfs(i, j)
-        
-        for line in grid:
-            print(line)
-        
+    
         result = 0
         for i in range(n):
             for j in range(m):
-                if grid[i][j] == 1:# 还有新鲜的
+                if grid[i][j] == 1: # 还有新鲜的
                     return -1
                 if grid[i][j] < 0:
                     result = min(result, grid[i][j])

@@ -14,20 +14,23 @@ class Solution:
         for node1, node2, time in edges:
             t = g[node1].get(node2, inf)
             g[node1][node2] = min(t, time)
+            
+            t = g[node2].get(node1, inf)
+            g[node2][node1] = min(t, time)
         
         @cache
         def dfs(i, k):
-            if (i == n-1 and k < 0) or (i != n-1 and k <= 0):
+            if k < 0:
                 return inf
-            if i == n-1:
+            if i == n-1 and k >= 0:
                 return passingFees[-1]
 
             t = inf
             p = passingFees[i]
             for j in g[i]:
                 w = g[i][j]
-                t = min(t, dfs(j, k-w) + p)
-            return t
+                t = min(t, dfs(j, k-w))
+            return t + p
         
         result = dfs(0, maxTime)
         return result if result != inf else -1
