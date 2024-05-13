@@ -11,18 +11,17 @@ class Solution:
         快速幂，不求余
         带符号的
         '''
-        sign = 0
-        if exponent < 0:
-            sign = 1
-            exponent = -exponent
+        esign = 1 if exponent > 0 else -1
+        exponent = abs(exponent)
+        
         result = 1
+        now = base
         while exponent:
             if exponent & 1:
-                result *= base
-            base *= base
+                result *= now
+            now *= now
             exponent >>= 1
-        return 1/result if sign else result
-        
-        
+            
+        return result if esign > 0 else 1 / result
 # @lc code=end
 
