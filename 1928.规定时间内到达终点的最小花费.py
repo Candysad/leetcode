@@ -17,7 +17,7 @@ class Solution:
             
             t = g[node2].get(node1, inf)
             g[node2][node1] = min(t, time)
-        
+            
         @cache
         def dfs(i, k):
             if k < 0:
