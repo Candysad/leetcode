@@ -3,18 +3,45 @@
 #
 # [322] 零钱兑换
 #
-
+from functools import cache
+from math import inf
 # @lc code=start
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         '''
-        动态规划 背包问题
-        面值不一定符合常识，可能是完全不能凑成目标的几个数，也可能是刚好有特定组合可以凑出目标的一组
-        coins [186,419,83,408]
-        amount 6249
-        还是只能动态规划
+        位运算
+        '''
+        dp = 1 << amount
+        result = 0
+        while dp & 1 == 0:
+            t = dp
+            for coin in coins:
+                dp |= t >> coin
+            if t == dp:
+                return -1
+            result += 1
+        return result
         
-        题目amoun 最大 1000 数组最长1000，但是实际问题中会不会太大了？
+        '''
+        递归
+        '''
+        # @cache
+        # def dfs(s):
+        #     if s == amount:
+        #         return 0
+        #     if s > amount:
+        #         return inf
+
+        #     t = inf
+        #     for coin in coins:
+        #         t = min(t, dfs(s + coin))
+            
+        #     return t + 1
+        # result = dfs(0)
+        # return result if result != inf else -1
+                
+        '''
+        动态规划
         '''
         # if amount == 0:
         #     return 0
@@ -37,21 +64,5 @@ class Solution:
         #             break
         #         trans(now_amount - coin, now_amount)
         # return dp[amount]
-        
-        '''
-        位运算技巧
-        这还算动态规划吗？
-        '''
-        dp = 1 << amount 
-        result = 0
-        while dp & 1 == 0:
-            t = dp
-            for coin in coins:
-                dp |= t >> coin
-            if dp == t:
-                return -1
-            result += 1
-        return result
-        
 # @lc code=end
 
