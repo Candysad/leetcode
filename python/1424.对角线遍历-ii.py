@@ -3,7 +3,7 @@
 #
 # [1424] 对角线遍历 II
 #
-
+from collections import deque
 # @lc code=start
 class Solution:
     def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
@@ -11,30 +11,30 @@ class Solution:
         ns = []
         for line in nums:
             ns.append(len(line))
-        n = max(ns) + 1
+        
+        queue = deque()
         result = []
         
-        # 从上到下
+        # 贴着左边从上到下
         for i in range(m):
-            x, y = i, 0
-            while x >= 0 and y < n:
-                if y < ns[x]:
-                    result.append(nums[x][y])
-
-                x -= 1
-                y += 1
+            queue.appendleft((i, 0))
+            
+            t = queue
+            queue = deque()
+            for x, y in t:
+                result.append(nums[x][y])
+                if y + 1 < ns[x]:
+                    queue.append((x, y+1))
         
-        # 从左到右
-        for i in range(n):
-            x, y = m-1, i
-            while x >= 0 and y < n:
-                if y < ns[x]:
-                    result.append(nums[x][y])
-
-                x -= 1
-                y += 1
+        # 贴着下面从左到右
+        while queue:
+            t = queue
+            queue = deque()
+            for x, y in t:
+                result.append(nums[x][y])
+                if y + 1 < ns[x]:
+                    queue.append((x, y+1))
         
-        return result
-        
+        return result    
 # @lc code=end
 
