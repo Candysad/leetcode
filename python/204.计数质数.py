@@ -3,14 +3,23 @@
 #
 # [204] 计数质数
 #
-
+from math import isqrt
 # @lc code=start
-N = 5000000
-is_prime = [0, 0, 1] + [0 if i % 2 else 1 for i in range(N-3)]
-for i in range(2, isqrt(N)+1):
-    if is_prime[i]:
-        for j in range(i*i, N, i):
-            is_prime[j] = 0
+# 线性筛
+N = 5* 10**6 + 1
+pri = []
+ispri = [0, 0] + [1] * N
+for i in range(2, N):
+    if ispri[i]:
+        pri.append(i)
+        
+    for j in pri:
+        if i * j >= N:
+            break
+        ispri[i*j] = 0
+
+        if i % j == 0:
+            break
 
 class Solution:
     def countPrimes(self, n: int) -> int:
@@ -22,8 +31,6 @@ class Solution:
         if n <= 2: 
             return 0
         else:
-            return sum(is_prime[:n])
-        
-
+            return sum(ispri[:n])
 # @lc code=end
 
