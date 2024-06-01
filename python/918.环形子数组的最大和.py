@@ -10,9 +10,6 @@ class Solution:
         n = len(nums)
         _sum = sum(nums)
         
-<<<<<<< HEAD
-        
-=======
         total_max = -inf
         total_min = inf
         premax = -inf
@@ -24,7 +21,6 @@ class Solution:
                 premax += n
             total_max = max(total_max, premax)    
             
-            
             if premin > 0:
                 premin = n
             else:
@@ -34,6 +30,5 @@ class Solution:
         if total_min == _sum:
             return total_max
         return max(total_max, _sum - total_min)
->>>>>>> 1f62bc645f6c39c2bf22ed1898eaccfa2d0381b9
 # @lc code=end
 
