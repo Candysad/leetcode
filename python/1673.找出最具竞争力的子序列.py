@@ -10,11 +10,11 @@ class Solution:
         n = len(nums)
         stack = []
         for i, num in enumerate(nums):
-            least = max((k-(n-i), 0))
-            while len(stack) > least and num < stack[-1]:
+            least = n - i
+            while stack and len(stack) + least > k and num < stack[-1]:
                 stack.pop()
             stack.append(num)
-    
+        
         return stack[:k]
 # @lc code=end
 
