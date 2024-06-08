@@ -7,18 +7,25 @@ from collections import defaultdict
 # @lc code=start
 class Solution:
     def frogPosition(self, n: int, edges: List[List[int]], t: int, target: int) -> float:
-        if target == 1: return 0
+        # 目标就是 1，除非全图只有1，否则就是 0 概率
+        if target == 1:
+            if len(edges) == 0:
+                return 1
+            else:
+                return 0
+
         g = defaultdict(list)
         for a, b in edges:
             g[a].append(b)
             g[b].append(a)
         
-        path = []
+        path = [] # 记录来的路
         def dfs(t, now, pre):
             if now == target:
-                if t != 0 and g[now] != 1:
+                # 找到了但是时间没耗尽且还能走到其他地方
+                if t != 0 and len(g[now]) != 1:
                     return 0
-                else:
+                else: # 找到了耗尽了或者找到了只能原地踏步
                     return 1
             if t == 0:
                 return -1
@@ -36,14 +43,13 @@ class Solution:
             
         path.append(1)
         result = dfs(t, 1, -1)
+        # 找到了，但是没停下来
         if result == 0: return 0
-        
-        print(g)
-        print(path)
+        # 来不及，找不到
+        if path[-1] != target: return 0
+        # 来得及，找得到，能停下来
         result = 1 / len(g[1])
-        for node in path[1:-1]:
-            print(len(g[node])-1)
+        for node in path[1:-1]: # path 最后一个是自己，算概率的时候不用
             result *= 1 / (len(g[node]) - 1)
         return result
-         
 # @lc code=end
