@@ -4,6 +4,7 @@
 # [2400] 恰好移动 k 步到达某一位置的方法数目
 #
 from functools import cache
+from math import comb
 # @lc code=start
 class Solution:
     def numberOfWays(self, startPos: int, endPos: int, k: int) -> int:
