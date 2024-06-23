@@ -21,6 +21,16 @@ class Solution:
         
         额外空间为O(1) 但是时间不定
         '''
+        if head is None: return False
+        fast, slow = head.next, head
+        while fast is not None:
+            if fast == slow:
+                return True
+            fast = fast.next
+            if fast is None: return False
+            fast = fast.next
+            slow = slow.next            
+        return False
         
         '''
         无要求的话可以修改节点的值或next
