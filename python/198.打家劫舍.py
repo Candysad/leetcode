@@ -7,6 +7,13 @@
 # @lc code=start
 class Solution:
     def rob(self, nums: List[int]) -> int:
+        dpb, dpt = 0 ,0
+        for num in nums:
+            bt = max(dpb, dpt)
+            t = dpb + num
+            dpb, dpt = bt, t
+        return max(dpb, dpt)
+            
         '''
         一种状态
         '''
@@ -19,17 +26,16 @@ class Solution:
         
         '''
         代码简化
-        易读性差
         '''
-        n = len(nums)
-        left, right = 0, nums[0]
+        # n = len(nums)
+        # left, right = 0, nums[0]
         
-        for i in range(1, n):
-            left, right = right, max(left + nums[i], right)
-        return right
+        # for i in range(1, n):
+        #     left, right = right, max(left + nums[i], right)
+        # return right
         
         '''
-        两种状态dp
+        两种状态
         '''
         # n = len(nums)
         # dp0 = [0] * (n + 1) # 今天不偷

@@ -3,7 +3,7 @@
 #
 # [2466] 统计构造好字符串的方案数
 #
-
+from functools import reduce
 # @lc code=start
 class Solution:
     def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
@@ -27,21 +27,17 @@ class Solution:
             从 i-zero 走 zero 步上来
         或者从 i-one  走 one  步上来
         '''
-        mod = 10**9 + 7
-        n = high + 1
-        dp = [0] * n
-        dp[0] = 1
+        mod = 10 ** 9 + 7
+        dp = [1] + [0] * high
         
-        for i in range(n):
+        for i in range(min(zero, one), high+1):
             if i >= zero:
-                dp[i] = (dp[i] + dp[i-zero]) % mod
+                dp[i] += dp[i-zero]
+                dp[i] %= mod
             if i >= one:
-                dp[i] = (dp[i] + dp[i-one]) % mod
-        
-        result = 0
-        for i in range(low, high+1):
-            result = (result + dp[i]) % mod
-        
-        return result
+                dp[i] +=  + dp[i-one]
+                dp[i] %= mod
+
+        return sum(dp[low:]) % mod
 # @lc code=end
 
