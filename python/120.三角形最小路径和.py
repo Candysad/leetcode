@@ -7,6 +7,15 @@
 # @lc code=start
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
+        layer = len(triangle)
+        dp = triangle[-1].copy()
+        
+        for i in range(layer-2, -1, -1): # 从倒数第2层开始
+            for j in range(i+1):
+                dp[j] = min(dp[j], dp[j+1]) + triangle[i][j]
+        return dp[0]
+        
+        
         '''
         有诡异形状的矩阵二维DP
         三角形两头都要单独处理
@@ -36,15 +45,15 @@ class Solution:
         不需要处理两端
         更简洁
         '''
-        layers = len(triangle)
-        if layers == 1:
-            return triangle[0][0]
+        # layers = len(triangle)
+        # if layers == 1:
+        #     return triangle[0][0]
         
-        for i in range(layers-2, 0, -1):
-            for j in range(i + 1):
-                triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1])
+        # for i in range(layers-2, 0, -1):
+        #     for j in range(i + 1):
+        #         triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1])
         
-        return triangle[0][0] + min(triangle[1][0], triangle[1][1])
+        # return triangle[0][0] + min(triangle[1][0], triangle[1][1])
                 
         
 # @lc code=end

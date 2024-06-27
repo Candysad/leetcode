@@ -7,20 +7,19 @@
 # @lc code=start
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        target = sum(nums)
-        if target % 2:
-            return False
-        target //= 2
-        dp = [True] + [False] * target
-        # nums.sort()
+        _sum = sum(nums)
+        if _sum % 2: return False
+        
+        target = _sum // 2
+        
+        dp = [1] + [0] * target
+        nums.sort()
+        
         for coin in nums:
-            # 01 背包，倒着放避免自己影响自己
+            if coin > target: break
             for i in range(target, coin-1, -1):
                 dp[i] |= dp[i-coin]
-            print(dp)
         
-        return dp[-1]
-                
-        
+        return dp[-1] == 1
 # @lc code=end
 

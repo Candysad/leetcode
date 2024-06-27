@@ -14,19 +14,13 @@ class Solution:
         m = len(grid)
         n = len(grid[0])
         
-        for i in range(1, n):
-            grid[0][i] += grid[0][i-1]
+        for j in range(1, n):
+            grid[0][j] += grid[0][j-1]
         for i in range(1, m):
             for j in range(n):
                 if j == 0:
                     grid[i][0] += grid[i-1][0]
                 else:
                     grid[i][j] += min(grid[i-1][j], grid[i][j-1])
-        
-        # for line in grid:
-        #     print(line)
         return grid[-1][-1]
-            
-            
 # @lc code=end
-

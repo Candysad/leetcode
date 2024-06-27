@@ -19,8 +19,7 @@ class Solution:
             ]:
                 if  0 <= x < m and 0 <= y < n:
                     if matrix[i][j] > matrix[x][y]:
-                        return False
-                
+                        return False  
             return True
             
         for i in range(m):
