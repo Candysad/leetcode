@@ -9,28 +9,29 @@ class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
         n = len(nums)
         
-        def sift_down(start, end):
-            item = nums[start]
+        def quick(start, end):
+            if start >= end: return
             
-            p = start
-            c = 2 * p + 1
-            while c <= end:
-                cr = c + 1
-                if cr <= end and nums[cr] > nums[c]:
-                    c = cr
-                
-                if nums[c] > item:
-                    nums[p] = nums[c]
-                    p = c
-                    c = 2 * p + 1
+            p = randint(start, end)
+            nums[start], nums[p] = nums[p], nums[start]
+            p = nums[start]
+            
+            left, mid, right = start, start+1, end+1
+            while mid < right:
+                if nums[mid] > p:
+                    nums[mid], nums[right-1] = nums[right-1], nums[mid]
+                    right -=1
+                elif nums[mid] < p:
+                    nums[mid], nums[left+1] = nums[left+1], nums[mid]
+                    left += 1
+                    mid += 1
                 else:
-                    break
-            nums[p] = item
-        
-        for i in range((n-2) >> 1, -1, -1):
-            sift_down(i, n-1)
-        for i in range(n-1, 0, -1):
-            nums[i], nums[0] = nums[0], nums[i]
-            sift_down(0, i-1)
+                    mid += 1
+            nums[left], nums[start] = nums[start], nums[left]
+
+            quick(start, left-1)
+            quick(right, end)
+            
+        quick(0, n-1)
         return nums
 # @lc code=end
