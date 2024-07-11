@@ -23,7 +23,6 @@ def strStr(s: str, p: str) -> int:
             i += 1
             j += 1
             if j == pn:
-                print(i, j)
                 return i - pn
         else:
             if j == 0: # 第一个就没匹配上，s 向后走一个
