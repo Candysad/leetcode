@@ -8,7 +8,8 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         if not digits:
-            return list()
+            return []
+        
         phoneMap = {
             "2": "abc",
             "3": "def",
@@ -20,35 +21,20 @@ class Solution:
             "9": "wxyz",
         }
         
-        '''
-        遍历
-        '''
-        # result = []
-        # for d in digits:
-        #     if result:
-        #         t = [r+p for r in result for p in phoneMap[d]]
-        #         result = t
-        #     else:
-        #         for c in phoneMap[d]:
-        #             result.append(c)
-        # return result
-        
-        '''
-        递归
-        '''
-        def backtrack(index: int):
-            if index == len(digits): # 到头了则添加一组
-                combinations.append("".join(combination))
-            else:
-                digit = digits[index]
-                for letter in phoneMap[digit]: # 没到头则循环递归添加一个字符
-                    combination.append(letter)
-                    backtrack(index + 1) # 递归添加下一个可能的字符
-                    combination.pop() # 回溯 # 递归到头后再到这一步，回退一个字符准备换成下一个
+        result = []
+        path = []
+        n = len(digits)
+        def dfs(i):
+            if i == n:
+                result.append(''.join(path))
+                return
 
-        combination = []
-        combinations = []
-        backtrack(0)
-        return combinations 
+            for c in phoneMap[digits[i]]:
+                path.append(c)
+                dfs(i+1)
+                path.pop()
+        
+        dfs(0)
+        return result    
 # @lc code=end
 
