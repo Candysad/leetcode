@@ -14,17 +14,16 @@
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
         n = len(nums)
+        
         def dfs(left, right):
             if left > right:
                 return None
-            mid = (left + right) // 2
-            node = TreeNode(nums[mid])
-            node.left = dfs(left, mid-1)
-            node.right = dfs(mid+1, right)
             
-            return node
+            mid = left + ((right - left) >> 1)
+            now = TreeNode(nums[mid])
+            now.left = dfs(left, mid - 1)
+            now.right = dfs(mid + 1, right)
+            return now
         
         return dfs(0, n-1)
-                
 # @lc code=end
-
