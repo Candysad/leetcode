@@ -3,22 +3,28 @@
 #
 # [1043] 分隔数组以得到最大和
 #
-from functools import cache
+from collections import deque
 # @lc code=start
 class Solution:
     def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
         n = len(arr)
-        @cache
-        def dfs(i, lens, premax):
-            if i == n: 
-                return premax * lens
-            
-            if lens == k:
-                return lens * premax + dfs(i + 1, 1, arr[i])
-            
-            t1 = dfs(i+1, lens+1, max(premax, arr[i]))
-            t2 = lens * premax + dfs(i+1, 1, arr[i])
-            return max(t1, t2)
+        dp = deque([0])
+        pres = deque([0])
         
-        return dfs(0, 0, 0)
+        for num in arr:
+            lastmax = num
+            result = dp[-1] + lastmax
+            dn = len(dp)
+            
+            for j in range(dn - 1, 0, -1):
+                lastmax = max(lastmax, pres[j])
+                result = max(result, dp[j-1] + lastmax * (dn - j + 1))
+            
+            dp.append(result)
+            pres.append(num)
+            if dn + 1 == k + 1:
+                dp.popleft()
+                pres.popleft()
+            
+        return dp[-1]
 # @lc code=end
