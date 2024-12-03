@@ -11,14 +11,13 @@ def manacher(s:str, spacial_token='#') -> List[int]:
     d = [1] * n
     left, right = 0, -1
     for i in range(n):
-        r = 1 if i > right else min(d[left + right - i], right - i + 1)
-        while 0 <= i - r and i + r < n and s[i - r] == s[i + r]:
-            r += 1
-        d[i] = r
-        r -= 1
-        if i + r > right:
-            left = i + r
-            right = i - r
+        radius = 1 if i > right else min(d[left + right - i], right - i + 1)
+        while i >= radius and i + radius < n and s[i - radius] == s[i + radius]:
+            radius += 1
+        d[i] = radius
+        if i + radius - 1 > right:
+            left = i - radius + 1
+            right = i + radius -1
     
     return d # 结果是基于 `#` 插入后的字符串
 ```
@@ -41,7 +40,7 @@ def manacher(s:str, spacial_token='#') -> List[int]:
   - 其左侧字符已经作为中心点遍历过了
   - 若其仍在 $[left, right]$ 则其在 $[left, right]$ 中的对称点已经遍历过了
   - $[left, right]$ 为回文，可以用 $i$ 在这一段中的对称点更新它的回文半径
-  - 更新时，可能对称点的半径在 $i$ 处会超出 $right$，对于超出的部分，因为还未遍历过，所以是位置的，即更新位置不能超出 $right$
+  - 更新时，可能对称点的半径在 $i$ 处会超出 $right$，对于超出的部分，因为还未遍历过，所以是未知的，即更新位置不能超出 $right$
     - $d_1[i] = \min(d_1[left + right - i], right - i + 1)$
     - $d_2[i]$ 类似
   - 更新后，继续向外侧遍历拓宽 $d_1[i]$，直到不再是回文或抵达边界
@@ -62,3 +61,4 @@ def manacher(s:str, spacial_token='#') -> List[int]:
 
 - [最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring/)
 - [分隔回文子串](https://leetcode.cn/problems/palindrome-partitioning-iv/description/)
+- [2472. 不重叠回文子字符串的最大数目](https://leetcode.cn/problems/maximum-number-of-non-overlapping-palindrome-substrings/description/)
