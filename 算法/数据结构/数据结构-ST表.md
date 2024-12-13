@@ -62,3 +62,10 @@ def find(tree, left: int, right: int):
     return f(tree[left][m], tree[mid][m])
 ```
 
+
+
+### 例题
+
+- 239.[区间最大值](https://leetcode.cn/problems/sliding-window-maximum/description/)
+- 1483.[第 k 个祖先](https://leetcode.cn/problems/kth-ancestor-of-a-tree-node/description/)
+- p3865.[区间最值](https://www.luogu.com.cn/problem/P3865)
