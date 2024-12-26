@@ -38,3 +38,10 @@ def build_fail():
         deep += 1
 ```
 
+
+
+### 例题
+
+- 3291.[最少前缀构建目标](https://leetcode.cn/problems/minimum-number-of-valid-strings-to-form-target-i/)
+- 3213.[额外属性的AC自动机](https://leetcode.cn/problems/construct-string-with-minimum-cost/)
+
