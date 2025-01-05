@@ -44,4 +44,5 @@ def build_fail():
 
 - 3291.[最少前缀构建目标](https://leetcode.cn/problems/minimum-number-of-valid-strings-to-form-target-i/)
 - 3213.[额外属性的AC自动机](https://leetcode.cn/problems/construct-string-with-minimum-cost/)
+- 2781.[AC 自动机与子串长度属性](https://leetcode.cn/problems/length-of-the-longest-valid-substring/description/)
 
