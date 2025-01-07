@@ -38,8 +38,6 @@ def strStr(s: str, p: str) -> int:
 
 
 
-
-
 ### 之前遍历信息 next 数组
 
 - pattern 比 s 短，在pattern 上回退
