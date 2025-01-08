@@ -1,48 +1,40 @@
-# KMP 算法
+# KMP
 
 ```python
-def strStr(self, s: str, pattern: str) -> int:
-    def build_next(pattern: str):
-        next = [0] # 开头默认为0
-        i = 1 # 第一个已知，从第二个开始匹配前后缀
-        prefix_len = 0
-        while i < len(pattern):
-            if pattern[prefix_len] == pattern[i]: # 当前前缀末尾和后缀末尾相同
-                prefix_len += 1
-                i += 1
-                next.append(prefix_len)
-            else:
-                if prefix_len == 0: # 在和最开始匹配都没匹配上，没有相同前后缀
-                    i += 1 #没匹配上，直接往后走
-                    next.append(0)
-                else:
-                    prefix_len = next[prefix_len - 1] # 没匹配上，但是可以找以前的位置提前后移
-                    								  # next 本身的构建也遵循回退
+def strStr(s: str, p: str) -> int:
+    def get_next(p):
+        n = len(p)
+        next = [-1] * n
+
+        for i in range(1, n):
+            last = next[i-1]
+            while last > -1 and p[last+1] != p[i]:
+                last = next[last]
+            if p[last + 1] == p[i]:
+                next[i] = last + 1
         return next
 
-    next = build_next(pattern)
-    # print(next)
-    i = 0
-    j = 0
-    while i < len(s):
-        # print(i,j)
-        if s[i] == pattern[j]: # 相同，向后匹配
+    next = get_next(p)
+    sn = len(s)
+    pn = len(p)
+    i, j = 0, 0
+    while i < sn:
+        if s[i] == p[j]: # 正常匹配
             i += 1
             j += 1
-        elif j > 0: # 不相同但有重复
-            j = next[j - 1] # 回退
+            if j == pn:
+                return i - pn
         else:
-            i += 1 # 没有重复，此时pattern匹配位置还在0，s 直接从下一个开始匹配
-        if j == len(pattern): #pattern 匹配完，得到结果
-            return i - j 返回当前s匹配结束位置减去 pattern 长度，得到 s 中匹配开始位置
+            if j == 0: # 第一个就没匹配上，s 向后走一个
+                i += 1
+            else: # 有匹配上一部分
+                j = next[j - 1] + 1
 
     return -1
 ```
 
 - 记录之前遍历的信息
 - 通过记录的信息回退，减少遍历次数
-
-
 
 
 

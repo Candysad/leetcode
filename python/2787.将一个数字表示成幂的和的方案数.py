@@ -7,21 +7,17 @@
 # @lc code=start
 class Solution:
     def numberOfWays(self, target: int, x: int) -> int:
-        '''
-        0-1背包
-        '''
-        mod = 10**9 + 7
+        mod = 10 ** 9 + 7
         coins = []
         for i in range(1, target+1):
             if i**x > target: break
             coins.append(i**x)
         
         dp = [1] + [0] * target
-        _maxi = target
         for coin in coins:
-            for i in range(_maxi, coin-1, -1):
+            for i in range(target, coin-1, -1):
                 dp[i] += dp[i-coin]
                 dp[i] %= mod
         
-        return dp[-1] % mod
+        return dp[-1]
 # @lc code=end

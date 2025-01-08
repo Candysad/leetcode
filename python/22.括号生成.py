@@ -7,29 +7,25 @@
 # @lc code=start
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        '''
-        递归+回溯
-        加入左括号的情况和加入右括号的情况分别讨论
-        '''
         result = []
-        pre = []
-        def dfs(left:int, right:int) -> None:
-            if left == right == n:
-                result.append(''.join(pre))
+        path = []
+        
+        def dfs(left, right):
+            if left == n and right == n:
+                result.append(''.join(path))
                 return
             
-            if left < n:
-                pre.append('(')
-                dfs(left+1, right)
-                pre.pop()
-            
-            if left > right:
-                pre.append(")")
+            if right < left:
+                path.append(')')
                 dfs(left, right+1)
-                pre.pop()
+                path.pop()
             
+            if left < n:
+                path.append('(')
+                dfs(left+1, right)
+                path.pop()
+        
         dfs(0, 0)
-            
         return result
 # @lc code=end
 
