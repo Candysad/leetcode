@@ -44,6 +44,9 @@ def strStr(s: str, p: str) -> int:
 
 ## [Z 函数](https://oi-wiki.org/string/z-func/) / 扩展 KMP
 
+- 找出字符串 `s` 中每个下标开始的 `s` 的前缀的最大长度，形成数组 `z`
+- 固定 `z[0] = 0`
+
 ```python
 def zFunction(s: str):
     n = len(s)
