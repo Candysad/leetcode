@@ -55,8 +55,8 @@ def build(nums: List[int]):
 
     return tree
 
-def find(tree, left: int, right: int):
-    n = right - left
+def find(tree, left: int, right: int): # 闭区间
+    n = right - left + 1
     m = n.bit_length() - 1
     mid = right - (1 << m) + 1
     return f(tree[left][m], tree[mid][m])
