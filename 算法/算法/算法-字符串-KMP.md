@@ -53,7 +53,12 @@ def zFunction(s: str):
     z = [0] * n
     left, right = 0, 0
     for i in range(1, n):
-        z[i] = max(0, min(z[i - left], right - i + 1))
+        # z[i] = max(0, min(z[i - left], right - i + 1))
+        # Python 的 max 和 min 需要考虑类型，会比直接大小比较慢
+        if i < right:
+            _1 = z[i - left]
+            _2 = right - i + 1
+            z[i] = _1 if _1 < _2 else _2
 
         while i + z[i] < n and s[z[i]] == s[i + z[i]]:
             z[i] += 1
