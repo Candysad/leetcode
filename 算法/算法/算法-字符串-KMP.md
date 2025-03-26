@@ -1,7 +1,8 @@
 # KMP
 
 ```python
-def strStr(s: str, p: str) -> int:
+# 找第一个
+def kmp(s: str, p: str) -> int:
     def get_next(p):
         n = len(p)
         next = [-1] * n
@@ -39,6 +40,40 @@ def strStr(s: str, p: str) -> int:
 - 回退信息来自之前匹配过的内容与后侧重复的内容，都是从前向后的顺序
 - 默认一开始的 next[0]  为 0，没有必要使用
 - next[i] 指出当前位置出错时应该按照之前的重复长度回退到哪个位置
+
+```python
+# 找全部
+def kmp(s: str, p: str) -> List[int]:
+    def get_next(p):
+        n = len(p)
+        next = [-1] * n
+
+        for i in range(1, n):
+            last = next[i-1]
+            while last > -1 and p[last + 1] != p[i]:
+                last = next[last]
+            if p[last + 1] == p[i]:
+                next[i] = last + 1
+        return next
+
+    next = get_next(p)
+    sn, pn = len(s), len(p)
+    i, j = 0, 0
+    result = []
+    while i < sn:
+        if s[i] == p[j]:
+            i += 1
+            j += 1
+            if j == pn:
+                result.append(i - pn)
+                j = next[j - 1] + 1
+        else:
+            if j == 0:
+                i += 1
+            else:
+                j = next[j - 1] + 1
+    return result
+```
 
 
 
