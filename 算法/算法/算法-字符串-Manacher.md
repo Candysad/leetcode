@@ -8,18 +8,18 @@ def manacher(s:str, spacial_token='#') -> List[int]:
     s = spacial_token + spacial_token.join(list(s)) + spacial_token
     
     n = len(s)
-    d = [1] * n
+    r = [1] * n
     left, right = 0, -1
     for i in range(n):
-        radius = 1 if i > right else min(d[left + right - i], right - i + 1)
+        radius = 1 if i > right else min(r[left + right - i], right - i + 1)
         while i >= radius and i + radius < n and s[i - radius] == s[i + radius]:
             radius += 1
-        d[i] = radius
+        r[i] = radius
         if i + radius - 1 > right:
             left = i - radius + 1
-            right = i + radius -1
+            right = i + radius - 1
     
-    return d # 结果是基于 `#` 插入后的字符串
+    return r # 结果是基于 `#` 插入后的字符串
 ```
 
 
@@ -62,3 +62,30 @@ def manacher(s:str, spacial_token='#') -> List[int]:
 - [最长回文子串](https://leetcode.cn/problems/longest-palindromic-substring/)
 - [分隔回文子串](https://leetcode.cn/problems/palindrome-partitioning-iv/description/)
 - [2472. 不重叠回文子字符串的最大数目](https://leetcode.cn/problems/maximum-number-of-non-overlapping-palindrome-substrings/description/)
+- [214.最短开头回文](https://leetcode.cn/problems/shortest-palindrome/)
+
+
+
+```java
+public List<Integer> manacher(String s) {
+    String special = "#";
+    s = String.join(special, s.split("")) + special;
+
+    List<Integer> r = new ArrayList<>(Collections.nCopies(s.length(), 1));
+
+    int left = 0, right = -1;
+    for (int i = 0; i < s.length(); i++) {
+        int radius = i > right ? 1 : Math.min(r.get(left + right - i), right - i + 1);
+
+        while (i >= radius && i + radius < s.length() && s.charAt(i - radius) == s.charAt(i + radius)) radius++;
+
+        r.set(i, radius);
+        if (i + radius - 1 > right) {
+            left = i - radius + 1;
+            right = i + radius - 1;
+        }
+    }
+    return r;
+}
+```
+
